@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jswebfoundations.shop/sitemap.xml

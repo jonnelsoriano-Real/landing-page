@@ -36,6 +36,7 @@ mail:'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"
 quote:'<path d="M3 21c3 0 6-2 6-6V9H3v6h3M15 21c3 0 6-2 6-6V9h-6v6h3"/>',
 monitor:'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',
 chart:'<path d="M3 3v18h18M7 14l4-4 3 3 5-6"/>',
+send:'<path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/>',
 mark:'<rect x="3" y="3" width="18" height="18" rx="5"/><path d="M8 9h8M8 13h5"/>'
 };
 document.body.insertAdjacentHTML("afterbegin",'<svg width="0" height="0" style="position:absolute" aria-hidden="true">'+Object.keys(S).map(k=>'<symbol id="i-'+k+'" viewBox="0 0 24 24">'+S[k]+'</symbol>').join("")+'</svg>');
