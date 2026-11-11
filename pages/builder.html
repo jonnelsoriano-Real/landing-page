@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, viewport-fit=cover">
+<title>Builder | PageCraft</title>
+<link rel="icon" href="../assets/icons/favicon.svg">
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")||"light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+<header class="nav"><div class="wrap bar">
+  <a href="../index.html" class="logo"><svg class="i mark"><use href="#i-mark"/></svg>Page<span>Craft</span></a>
+  <div class="actions" style="margin-left:auto">
+    <a href="../index.html" class="btn sm ghost">Home</a>
+    <button id="themeBtn" class="iconbtn" aria-label="Toggle dark mode"><svg class="i sun"><use href="#i-sun"/></svg><svg class="i moon"><use href="#i-moon"/></svg></button>
+  </div>
+</div></header>
+<main class="s"><div class="wrap">
+<h1 class="bh">Page Builder</h1>
+<div class="bgrid">
+ <form class="panel" id="form" onsubmit="return false">
+  <label>Template<select id="type"></select></label>
+  <label>Brand name<input id="brand" value="Your Brand"></label>
+  <label>Headline<input id="head"></label>
+  <label>Subtext<textarea id="sub" rows="3"></textarea></label>
+  <label>Button text<input id="cta"></label>
+  <label>Logo image<input type="file" id="logo" accept="image/*"></label>
+  <label>Hero image<input type="file" id="hero" accept="image/*"></label>
+  <label>Feature 1 (Title | Description)<input id="f1" value="Fast | Loads instantly on any device"></label>
+  <label>Feature 2 (Title | Description)<input id="f2" value="Responsive | Looks great on every screen"></label>
+  <label>Feature 3 (Title | Description)<input id="f3" value="Simple | Easy to read and easy to use"></label>
+  <label><span><input type="checkbox" id="sa" checked style="width:auto;min-height:0"> About section</span></label>
+  <label>About text<textarea id="ab" rows="3">Tell your visitors who you are and what you do in a few friendly sentences.</textarea></label>
+  <label><span><input type="checkbox" id="sg" checked style="width:auto;min-height:0"> Gallery section</span></label>
+  <label>Gallery photos (up to 6)<input type="file" id="gal" accept="image/*" multiple></label>
+  <label><span><input type="checkbox" id="st" checked style="width:auto;min-height:0"> Testimonial section</span></label>
+  <label>Quote<textarea id="quote" rows="2">Replace this with a real quote from a happy customer.</textarea></label>
+  <label>Quote author<input id="qname" value="Customer Name"></label>
+  <label><span><input type="checkbox" id="sc" checked style="width:auto;min-height:0"> Contact section</span></label>
+  <label>Contact email<input id="email" type="email" value="hello@example.com"></label>
+  <label>Accent color<input type="color" id="color" value="#7c3aed"></label>
+  <label>Page theme<select id="pt"><option value="light">Light</option><option value="dark">Dark</option></select></label>
+  <button type="button" id="dl" class="btn"><svg class="i"><use href="#i-download"/></svg>Download HTML</button>
+ </form>
+ <div class="panel">
+  <div class="devs">
+   <button type="button" data-w="375px"><svg class="i"><use href="#i-app"/></svg>Phone</button>
+   <button type="button" data-w="768px">Tablet</button>
+   <button type="button" data-w="100%" class="on"><svg class="i"><use href="#i-monitor"/></svg>Desktop</button>
+  </div>
+  <div class="frame"><iframe id="pf" title="Live preview"></iframe></div>
+ </div>
+</div>
+</div></main>
+<script src="../js/icons.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/builder.js"></script>
+</body>
+</html>

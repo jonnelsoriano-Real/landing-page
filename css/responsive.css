@@ -1,0 +1,33 @@
+@media(min-width:1600px){:root{--w:88rem}}
+@media(min-width:2400px){:root{--w:100rem}}
+
+@media(max-width:900px){
+.actions{margin-left:auto}
+#menuBtn{display:flex}
+#menu{display:none;position:absolute;top:100%;left:0;right:0;margin:0;flex-direction:column;align-items:flex-start;gap:1rem;background:var(--bg);border-bottom:1px solid var(--line);padding:1.1rem var(--pad);max-height:calc(100dvh - 4rem);overflow-y:auto}
+#menu.open{display:flex}
+.hg,.two-col,.bgrid{grid-template-columns:1fr}
+.float{display:none}
+.rev>:first-child{order:0}
+.two-col h2,.cta h2{text-align:left}
+}
+
+@media(max-width:480px){
+.row .btn{width:100%}
+.head-row{flex-direction:column;align-items:flex-start}
+iframe{height:28rem}
+}
+
+@media(max-height:500px) and (orientation:landscape){
+.s{padding-block:2rem}
+}
+
+@media(prefers-reduced-motion:reduce){
+html{scroll-behavior:auto}
+*{transition:none!important}
+}
+
+/* Prevent horizontal overflow */
+html,body{max-width:100%;overflow-x:hidden}
+.hg>*,.two-col>*,.bgrid>*{min-width:0}
+h1,h2,h3,p{overflow-wrap:break-word}
