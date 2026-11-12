@@ -10,13 +10,17 @@ const T=[
 ["link","Link-in-Bio","All your links in one page"],
 ["wedding","Wedding","Invitation and details"],
 ["soon","Coming Soon","Teaser before launch"],
-["donation","Donation","Charity and causes"]
+["donation","Donation","Charity and causes"],
+["agency","Agency","Present your services","code"],
+["fitness","Fitness","Gym, coach or classes","bolt"],
+["photo","Photography","Gallery-first portfolio","eye"],
+["saas","Software / SaaS","Present a web tool","chart"]
 ];
 const $=id=>document.getElementById(id);
 
 const grid=$("grid");
 if(grid)T.forEach(t=>grid.insertAdjacentHTML("beforeend",
-`<div class="card"><div class="ico"><svg class="i"><use href="#i-${t[0]}"/></svg></div><h3>${t[1]}</h3><p>${t[2]}</p><a href="pages/builder.html?type=${t[0]}" class="btn sm">Use Template</a></div>`));
+`<div class="card"><div class="ico"><svg class="i"><use href="#i-${t[3]||t[0]}"/></svg></div><h3>${t[1]}</h3><p>${t[2]}</p><a href="pages/builder.html?type=${t[0]}" class="btn sm">Use Template</a></div>`));
 
 const menu=$("menu"),menuBtn=$("menuBtn");
 if(menu&&menuBtn){

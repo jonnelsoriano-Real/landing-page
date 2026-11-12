@@ -18,37 +18,75 @@
   </div>
 </div></header>
 <main class="s"><div class="wrap">
-<h1 class="bh">Page Builder</h1>
-<div class="bgrid">
+<div class="head-row"><h1 class="bh" style="margin:0">Page Builder</h1><a href="#preview" class="btn sm ghost">Go to preview</a></div>
+<div class="bgrid" style="margin-top:1rem">
  <form class="panel" id="form" onsubmit="return false">
-  <label>Template<select id="type"></select></label>
-  <label>Brand name<input id="brand" value="Your Brand"></label>
-  <label>Headline<input id="head"></label>
-  <label>Subtext<textarea id="sub" rows="3"></textarea></label>
-  <label>Button text<input id="cta"></label>
-  <label>Logo image<input type="file" id="logo" accept="image/*"></label>
-  <label>Hero image<input type="file" id="hero" accept="image/*"></label>
-  <label>Feature 1 (Title | Description)<input id="f1" value="Fast | Loads instantly on any device"></label>
-  <label>Feature 2 (Title | Description)<input id="f2" value="Responsive | Looks great on every screen"></label>
-  <label>Feature 3 (Title | Description)<input id="f3" value="Simple | Easy to read and easy to use"></label>
-  <label><span><input type="checkbox" id="sa" checked style="width:auto;min-height:0"> About section</span></label>
-  <label>About text<textarea id="ab" rows="3">Tell your visitors who you are and what you do in a few friendly sentences.</textarea></label>
-  <label><span><input type="checkbox" id="sg" checked style="width:auto;min-height:0"> Gallery section</span></label>
-  <label>Gallery photos (up to 6)<input type="file" id="gal" accept="image/*" multiple></label>
-  <label><span><input type="checkbox" id="st" checked style="width:auto;min-height:0"> Testimonial section</span></label>
-  <label>Quote<textarea id="quote" rows="2">Replace this with a real quote from a happy customer.</textarea></label>
-  <label>Quote author<input id="qname" value="Customer Name"></label>
-  <label><span><input type="checkbox" id="sc" checked style="width:auto;min-height:0"> Contact section</span></label>
-  <label>Contact email<input id="email" type="email" value="hello@example.com"></label>
-  <label>Accent color<input type="color" id="color" value="#7c3aed"></label>
-  <label>Page theme<select id="pt"><option value="light">Light</option><option value="dark">Dark</option></select></label>
-  <button type="button" id="dl" class="btn"><svg class="i"><use href="#i-download"/></svg>Download HTML</button>
+  <details open><summary>1. Template and style</summary>
+   <label>Template<select id="type"></select></label>
+   <label>Layout<select id="lay"><option value="auto">Template default</option><option value="split">Split (text and image)</option><option value="center">Centered</option><option value="bold">Bold (image background)</option><option value="stack">Link-in-bio (single column)</option></select></label>
+   <label>Font<select id="fnt"><option value="auto">Template default</option><option value="sans">Modern sans</option><option value="serif">Classic serif</option><option value="mono">Mono</option></select></label>
+   <label>Brand name<input id="brand" value="Your Brand"></label>
+   <label>Logo image<input type="file" id="logo" accept="image/*"></label>
+   <label>Accent color<input type="color" id="color" value="#7c3aed"></label>
+   <label>Page theme<select id="pt"><option value="light">Light</option><option value="dark">Dark</option></select></label>
+  </details>
+  <details open><summary>2. Hero</summary>
+   <label>Headline<input id="head"></label>
+   <label>Subtext<textarea id="sub" rows="3"></textarea></label>
+   <label>Button text<input id="cta"></label>
+   <label>Button link (https://... or leave empty)<input id="link" placeholder="https://t.me/yourgroup"></label>
+   <label>Hero image<input type="file" id="hero" accept="image/*"></label>
+  </details>
+  <details><summary>3. Features</summary>
+   <label>Feature 1 (Title | Description)<input id="f1"></label>
+   <label>Feature 2 (Title | Description)<input id="f2"></label>
+   <label>Feature 3 (Title | Description)<input id="f3"></label>
+  </details>
+  <details><summary>4. Sections</summary>
+   <label class="chk"><input type="checkbox" id="ss" checked> Stats</label>
+   <label>Stats (one per line: Value | Label)<textarea id="stt" rows="3">100+ | Happy clients
+24/7 | Support
+5 Years | Experience</textarea></label>
+   <label class="chk"><input type="checkbox" id="sa" checked> About</label>
+   <label>About text<textarea id="ab" rows="3">Tell your visitors who you are and what you do in a few friendly sentences.</textarea></label>
+   <label class="chk"><input type="checkbox" id="sg" checked> Gallery</label>
+   <label>Gallery photos (up to 6)<input type="file" id="gal" accept="image/*" multiple></label>
+   <label class="chk"><input type="checkbox" id="st" checked> Testimonial</label>
+   <label>Quote<textarea id="quote" rows="2">Replace this with a real quote from a happy customer.</textarea></label>
+   <label>Quote author<input id="qname" value="Customer Name"></label>
+   <label class="chk"><input type="checkbox" id="sf" checked> FAQ</label>
+   <label>FAQ (one per line: Question | Answer)<textarea id="fq" rows="4">How does it work? | Tell visitors the simple steps here.
+How long does it take? | Share a clear and honest timeline.</textarea></label>
+   <label class="chk"><input type="checkbox" id="sb" checked> Call-to-action banner</label>
+   <label>Banner text<input id="cta2" value="Ready to get started?"></label>
+   <label class="chk"><input type="checkbox" id="sc" checked> Contact</label>
+   <label>Contact email<input id="email" type="email" value="hello@example.com"></label>
+  </details>
+  <details><summary>5. Social links</summary>
+   <label>Telegram<input id="tg" placeholder="https://t.me/yourgroup"></label>
+   <label>Facebook<input id="fb" placeholder="https://facebook.com/yourpage"></label>
+   <label>Instagram<input id="ig" placeholder="https://instagram.com/yourname"></label>
+   <label>Website<input id="web" placeholder="https://yourdomain.com"></label>
+  </details>
+  <details><summary>6. Publish online</summary>
+   <p class="note">Publishes your page to your own GitHub Pages. Create a GitHub token (classic) with the <b>repo</b> permission. The token is sent only to GitHub, is never saved, and you can delete it after publishing.</p>
+   <label>Repository name (new name recommended)<input id="ghr" value="my-website" autocapitalize="none" autocorrect="off"></label>
+   <label>GitHub token<input id="ght" type="password" autocomplete="off" placeholder="ghp_..."></label>
+   <button type="button" id="pub" class="btn">Publish to GitHub Pages</button>
+  </details>
+  <div class="btns">
+   <button type="button" id="dl" class="btn"><svg class="i"><use href="#i-download"/></svg>Download HTML</button>
+   <button type="button" id="cp" class="btn ghost">Copy HTML</button>
+   <button type="button" id="rs" class="btn ghost">Reset</button>
+  </div>
+  <div id="msg" role="status"></div>
  </form>
- <div class="panel">
+ <div class="panel" id="preview">
   <div class="devs">
    <button type="button" data-w="375px"><svg class="i"><use href="#i-app"/></svg>Phone</button>
    <button type="button" data-w="768px">Tablet</button>
    <button type="button" data-w="100%" class="on"><svg class="i"><use href="#i-monitor"/></svg>Desktop</button>
+   <a href="#form" class="btn sm ghost">Back to editing</a>
   </div>
   <div class="frame"><iframe id="pf" title="Live preview"></iframe></div>
  </div>
