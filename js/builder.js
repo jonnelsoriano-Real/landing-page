@@ -160,46 +160,48 @@ $("rs").onclick=()=>{
  location.href=location.pathname;
 };
 
-/* Publish to the user's own GitHub Pages */
-const b64=s=>btoa(unescape(encodeURIComponent(s)));
-async function gh(path,opt,tk){
- const r=await fetch("https://api.github.com"+path,Object.assign({headers:{"Accept":"application/vnd.github+json","Authorization":"Bearer "+tk,"Content-Type":"application/json"}},opt||{}));
+/* Publish to the user's own Netlify account */
+const NF="https://api.netlify.com/api/v1";
+async function nf(path,opt,tk){
+ opt=opt||{};
+ const r=await fetch(NF+path,{method:opt.method||"GET",body:opt.body,headers:Object.assign({"Authorization":"Bearer "+tk},opt.headers||{})});
  let j=null;try{j=await r.json()}catch(e){}
  return{ok:r.ok,status:r.status,j};
 }
+async function sha1(bytes){
+ const h=await crypto.subtle.digest("SHA-1",bytes);
+ return[...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,"0")).join("");
+}
 $("pub").onclick=async()=>{
- const repo=$("ghr").value.trim(),tk=$("ght").value.trim();
- if(!repo||!tk)return say("Enter a repository name and your GitHub token.",1);
- if(!/^[\w.-]+$/.test(repo))return say("Repository name can only use letters, numbers, dots, dashes and underscores.",1);
+ const name=$("nfn").value.trim().toLowerCase(),tk=$("nft").value.trim();
+ if(!tk)return say("Enter your Netlify token.",1);
+ if(name&&!/^[a-z0-9][a-z0-9-]{1,62}$/.test(name))return say("Site name can only use lowercase letters, numbers and dashes.",1);
  const btn=$("pub");btn.disabled=true;
  try{
-  say("Checking your GitHub account...");
-  const me=await gh("/user",{},tk);
-  if(!me.ok)throw new Error("Token is invalid or expired.");
-  const u=me.j.login;
-  say("Checking repository...");
-  let x=await gh(`/repos/${u}/${repo}`,{},tk);
-  if(x.status===404){
-   say("Creating repository...");
-   x=await gh("/user/repos",{method:"POST",body:JSON.stringify({name:repo,description:"Website made with PageCraft",auto_init:true})},tk);
-   if(!x.ok)throw new Error((x.j&&x.j.message)||"Could not create the repository.");
-  }else if(!x.ok)throw new Error((x.j&&x.j.message)||"Could not read the repository.");
-  const br=(x.j&&x.j.default_branch)||"main";
-  const ex=await gh(`/repos/${u}/${repo}/contents/index.html?ref=${br}`,{},tk);
-  if(ex.ok&&!confirm("This repository already has an index.html. Replace it with this page?")){say("Publish cancelled.");btn.disabled=false;return}
+  say("Checking your Netlify account...");
+  const list=await nf("/sites?filter=owner&per_page=100",{},tk);
+  if(!list.ok)throw new Error("Token is invalid or expired.");
+  let site=name?(list.j||[]).find(s=>s.name===name):null;
+  if(site){
+   if(!confirm("You already have a site named "+name+". Replace its content with this page?")){say("Publish cancelled.");btn.disabled=false;return}
+  }else{
+   say("Creating your site...");
+   const c=await nf("/sites",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(name?{name:name}:{})},tk);
+   if(!c.ok)throw new Error(c.status===422?"That site name is already taken. Try another name.":((c.j&&c.j.message)||"Could not create the site."));
+   site=c.j;
+  }
   say("Uploading your page...");
-  const body={message:"Publish with PageCraft",content:b64(build()),branch:br};
-  if(ex.ok&&ex.j&&ex.j.sha)body.sha=ex.j.sha;
-  const up=await gh(`/repos/${u}/${repo}/contents/index.html`,{method:"PUT",body:JSON.stringify(body)},tk);
+  const bytes=new TextEncoder().encode(build());
+  const hash=await sha1(bytes);
+  const d=await nf("/sites/"+site.id+"/deploys",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({files:{"/index.html":hash}})},tk);
+  if(!d.ok)throw new Error((d.j&&d.j.message)||"Could not start the deploy.");
+  const up=await nf("/deploys/"+d.j.id+"/files/index.html",{method:"PUT",headers:{"Content-Type":"application/octet-stream"},body:bytes},tk);
   if(!up.ok)throw new Error((up.j&&up.j.message)||"Upload failed.");
-  say("Turning on GitHub Pages...");
-  await gh(`/repos/${u}/${repo}/pages`,{method:"POST",body:JSON.stringify({source:{branch:br,path:"/"}})},tk);
-  const lu=u.toLowerCase();
-  const site=repo.toLowerCase()===lu+".github.io"?`https://${lu}.github.io/`:`https://${lu}.github.io/${repo}/`;
-  const m=$("msg");m.className="";m.textContent="Published! It goes live in 1 to 2 minutes: ";
-  const a=document.createElement("a");a.href=site;a.textContent=site;a.target="_blank";a.rel="noopener";m.appendChild(a);
-  $("ght").value="";
- }catch(e){say(e.message||"Something went wrong.",1)}
+  const link=site.ssl_url||site.url||("https://"+site.name+".netlify.app");
+  const m=$("msg");m.className="";m.textContent="Published! Your site is live: ";
+  const a=document.createElement("a");a.href=link;a.textContent=link;a.target="_blank";a.rel="noopener";m.appendChild(a);
+  $("nft").value="";
+ }catch(e){say((e.message==="Failed to fetch"?"Could not reach Netlify. Check your connection and token.":e.message)||"Something went wrong.",1)}
  btn.disabled=false;
 };
 

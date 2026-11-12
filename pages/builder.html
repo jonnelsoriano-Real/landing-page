@@ -69,10 +69,10 @@ How long does it take? | Share a clear and honest timeline.</textarea></label>
    <label>Website<input id="web" placeholder="https://yourdomain.com"></label>
   </details>
   <details><summary>6. Publish online</summary>
-   <p class="note">Publishes your page to your own GitHub Pages. Create a GitHub token (classic) with the <b>repo</b> permission. The token is sent only to GitHub, is never saved, and you can delete it after publishing.</p>
-   <label>Repository name (new name recommended)<input id="ghr" value="my-website" autocapitalize="none" autocorrect="off"></label>
-   <label>GitHub token<input id="ght" type="password" autocomplete="off" placeholder="ghp_..."></label>
-   <button type="button" id="pub" class="btn">Publish to GitHub Pages</button>
+   <p class="note">Publishes your page to your own free Netlify account and gives you a link like <b>yourname.netlify.app</b>. Create a token at Netlify: User settings, Applications, Personal access tokens. The token is sent only to Netlify and is never saved.</p>
+   <label>Site name (optional, becomes yourname.netlify.app)<input id="nfn" placeholder="my-website" autocapitalize="none" autocorrect="off"></label>
+   <label>Netlify token<input id="nft" type="password" autocomplete="off" placeholder="Paste token here"></label>
+   <button type="button" id="pub" class="btn">Publish to Netlify</button>
   </details>
   <div class="btns">
    <button type="button" id="dl" class="btn"><svg class="i"><use href="#i-download"/></svg>Download HTML</button>
